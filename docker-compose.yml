@@ -1,0 +1,46 @@
+version: '3.1'
+
+services:
+    dev-celke:
+        image: webdevops/php-apache-dev:7.4
+        container_name: php-apache-7.4-celke
+        volumes:
+            - ".:/app"
+            - "./docker/php.ini:/usr/local/etc/php/php.ini"  # verificar se o arquivo php.ini do linux é igual ao do windows 
+        ports:
+            - 8099:80
+        networks:
+            - rede-celke
+        depends_on:
+            - mysql-celke 
+  
+    mysql-celke:
+        image: mysql
+        container_name: mysql-celke
+        command: --default-authentication-plugin=mysql_native_password
+        volumes: 
+             - "C:/Users/rafael.risalte/Documents/Docker/volumes/celke/mysql/datadir:/var/lib/mysql"
+        #    - "C:/Users/rafael.risalte/Documents/Docker/volumes/celke/mysql/etc/my.cnf:/etc/mysql/my.cnf"
+        environment:
+            MYSQL_ROOT_PASSWORD: password.1
+        ports:
+            - "8090:80"
+        networks:
+            - rede-celke
+
+    phpmyadmin-celke:
+        image: phpmyadmin
+        container_name: phpmyadmin-celke
+        ports:
+            - 8080:80
+        environment:
+            - PMA_ARBITRARY=1
+        networks:
+            - rede-celke
+        depends_on:
+            - mysql-celke
+
+networks:
+    rede-celke:
+        driver: bridge
+
