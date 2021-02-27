@@ -42,3 +42,6 @@ nbproject/*
 
 # for docker use
 /docker/*
+
+# layout-adm
+/layout-adm/*
