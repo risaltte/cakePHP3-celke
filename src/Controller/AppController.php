@@ -62,4 +62,21 @@ class AppController extends Controller
         //$this->loadComponent('Security');
         //$this->loadComponent('Csrf');
     }
+
+    // beforeRender run after controller action logic, but before the view is rendered
+    public function beforeRender(Event $event)
+    {
+        $prefix = null;
+
+        if ($this->request->getParam(['prefix']) !== null) {
+            $prefix = $this->request->getParam(['prefix']);
+        }
+
+        if ($prefix === 'admin') {
+            if (($this->request->getParam(['action']) !== null ) && 
+                ($this->request->getParam(['action']) === 'login')) {
+                $this->viewBuilder()->setLayout('login');
+            }
+        }
+    }
 }
