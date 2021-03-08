@@ -52,7 +52,8 @@ class AppController extends Controller
             'logoutRedirect' => [
                 'controller' => 'Users',
                 'action' => 'login'
-            ]
+            ],
+            'authError' => 'Você precisa estar logado para acessar esta página.',
         ]);
 
         /*

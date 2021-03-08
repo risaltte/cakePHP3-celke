@@ -99,14 +99,12 @@ $cakeDescription = 'Celke - Administrativo';
         <div class="content p-1">
 
             <div class="list-group-item">
-                <div class="d-flex">
-                    <?= $this->Flash->render() ?>
-                    <?= $this->fetch('content') ?>
-                </div>
+                <?= $this->Flash->render() ?>
+                <?= $this->fetch('content') ?>
             </div>
 
         </div>
-    </div>    
+    </div>
 
     <?= $this->Html->script(['jquery-3.3.1.min', 'bootstrap-4.1.3.min', 'popper.mim', 'dashboard']) ?>
 </body>

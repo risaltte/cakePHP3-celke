@@ -116,13 +116,14 @@ class UsersController extends AppController
 
                 return $this->redirect($this->Auth->redirectUrl());
             } else {
-                $this->Flash->error(__('Usuário ou senha inválidos.'));
+                $this->Flash->danger(__('Usuário ou senha inválidos.'));
             }
         }
     }
 
     public function logout()
     {
+        $this->Flash->success(__('Deslogado com sucesso.'));
         return $this->redirect($this->Auth->logout());
     }
 }

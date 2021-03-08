@@ -34,7 +34,6 @@ $cakeDescription = 'Celke - Administrativo';
 </head>
 
 <body class="text-center">
-    <?= $this->Flash->render() ?>
     <?= $this->fetch('content') ?>
     
     <?= $this->Html->script(['jquery-3.3.1.min', 'bootstrap-4.1.3.min', 'popper.mim']) ?>
