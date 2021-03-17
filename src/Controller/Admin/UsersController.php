@@ -20,6 +20,10 @@ class UsersController extends AppController
      */
     public function index()
     {
+        $this->paginate = [
+            'limit' => 40
+        ];
+
         $users = $this->paginate($this->Users);
 
         $this->set(compact('users'));
