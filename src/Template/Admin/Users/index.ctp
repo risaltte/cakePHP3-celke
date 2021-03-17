@@ -17,6 +17,7 @@
 
 <div class="table-responsive">
     <table class="table table-striped table-hover table-bordered">
+        <caption>Listagem de usuários</caption>
         <thead>
             <tr>
                 <th>ID</th>
