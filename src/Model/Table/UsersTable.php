@@ -54,31 +54,31 @@ class UsersTable extends Table
 
         $validator
             ->scalar('name')
-            ->maxLength('name', 255)
-            ->requirePresence('name', 'create')
+            ->maxLength('name', 255, 'O campo nome deve ter no máximo 255 caracteres.')
+            ->requirePresence('name', 'create', 'O campo Nome deve ser preenchido.')
             ->notEmpty('name');
 
         $validator
             ->email('email')
-            ->requirePresence('email', 'create')
+            ->requirePresence('email', 'create', 'O campo E-mail deve ser preenchido.')
             ->notEmpty('email');
 
         $validator
             ->scalar('username')
-            ->maxLength('username', 255)
-            ->requirePresence('username', 'create')
+            ->maxLength('username', 255, 'O campo Username deve ter no máximo 255 caracteres.')
+            ->requirePresence('username', 'create', 'O campo username deve ser preenchido.')
             ->notEmpty('username');
 
         $validator
             ->scalar('password')
-            ->maxLength('password', 255)
-            ->requirePresence('password', 'create')
-            ->notEmpty('password');
+            ->maxLength('password', 255, 'O campo Password deve ter no máximo 255 caracteres.')
+            ->requirePresence('password', 'create', 'O campo Password deve ser preenchido.')
+            ->notEmpty('password')
+            ->minLength('password', 6, 'O password deve ter no mínimo 6 caracteres.');
 
         $validator
             ->dateTime('date')
-            ->requirePresence('date', 'create')
-            ->notEmpty('date');
+            ->allowEmpty('date', 'create');
 
         return $validator;
     }
@@ -92,8 +92,8 @@ class UsersTable extends Table
      */
     public function buildRules(RulesChecker $rules)
     {
-        $rules->add($rules->isUnique(['email']));
-        $rules->add($rules->isUnique(['username']));
+        $rules->add($rules->isUnique(['email'], 'Este e-mail já está cadastrado.'));
+        $rules->add($rules->isUnique(['username'], 'Este username já está em uso.'));
 
         return $rules;
     }
