@@ -26,3 +26,9 @@ $paginator = $this->Paginator->setTemplates([
         ?>
     </ul>
 </nav>
+
+<?php 
+    echo $this->Paginator->counter(
+        '<p class="text-right"><small>Página {{page}} de {{pages}}, exibindo {{current}} de {{count}} registro(s) encontrados.</small></p>'
+    );
+?>
