@@ -39,7 +39,7 @@ class CreateTableUsers extends AbstractMigration
         ]);
 
         $table->addColumn('date', 'datetime', [
-            'default' => null,
+            'default' => 'CURRENT_TIMESTAMP',
             'null' => false
         ]);
 
