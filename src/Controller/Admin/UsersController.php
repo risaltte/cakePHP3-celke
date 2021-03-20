@@ -21,7 +21,7 @@ class UsersController extends AppController
     public function index()
     {
         $this->paginate = [
-            'limit' => 40
+            'limit' => 10
         ];
 
         $users = $this->paginate($this->Users);
@@ -57,9 +57,12 @@ class UsersController extends AppController
             $user = $this->Users->patchEntity($user, $this->request->getData());
             if ($this->Users->save($user)) {
                 $this->Flash->success(__('Usuário cadastrado com sucesso.'));
-                return $this->redirect(['action' => 'index']);
+                return $this->redirect(['controler' => 'Users', 'action' => 'index']);
             }
-            $this->Flash->error(__('Não foi possível cadastrar o usuário. Por favor, tente novamente.'));
+            $this->Flash->danger(__('Não foi possível cadastrar o usuário. Por favor, tente novamente.<br>'), [
+                'params' => ['errors' => $user->getErrors()], 
+                'escape' => false
+            ]);
         }
 
         $this->set(compact('user'));
