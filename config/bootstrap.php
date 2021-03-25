@@ -39,6 +39,7 @@ use Cake\Database\Type;
 use Cake\Datasource\ConnectionManager;
 use Cake\Error\ErrorHandler;
 use Cake\Http\ServerRequest;
+use Cake\I18n\FrozenTime;
 use Cake\Log\Log;
 use Cake\Mailer\Email;
 use Cake\Utility\Inflector;
@@ -216,6 +217,8 @@ if (Configure::read('debug')) {
     Plugin::load('DebugKit', ['bootstrap' => true]);
 }
 
-
-
 Plugin::load('Migrations');
+
+
+/* Date and time string format */
+FrozenTime::setToStringFormat('dd/MM/yyy HH:mm:ss');
