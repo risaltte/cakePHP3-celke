@@ -105,7 +105,7 @@ $cakeDescription = 'Celke - Administrativo';
         </div>
     </div>
 
-    <?= $this->Html->script(['jquery-3.3.1.min', 'bootstrap-4.1.3.min', 'popper.mim', 'dashboard']) ?>
+    <?= $this->Html->script(['jquery-3.3.1.min', 'popper.min', 'bootstrap-4.1.3.min', 'dashboard']) ?>
 </body>
 
 </html>

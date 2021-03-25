@@ -36,7 +36,11 @@
                     <td class="d-none d-sm-table-cell"><?= h($user->email) ?></td>
                     <td class="d-none d-lg-table-cell"><?= h($user->date) ?></td>
                     <td class="text-center">
-                        <?= $this->Html->link(__('View'), ['action' => 'view', $user->id]) ?>
+                        <?= 
+                            $this->Html->link(__('Vizualizar'), 
+                            ['controller' => 'Users','action' => 'view', $user->id], 
+                            ['class' => 'btn btn-outline-primary btn-sm']) 
+                        ?>
                         <?= $this->Html->link(__('Edit'), ['action' => 'edit', $user->id]) ?>
                         <?= $this->Form->postLink(
                             __('Delete'),
