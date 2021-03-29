@@ -39,61 +39,11 @@ $cakeDescription = 'Celke - Administrativo';
 
 <body>
     <!----------- NAVBAR ------------->
-    <nav class="navbar navbar-expand navbar-dark bg-primary">
-        <a class="sidebar-toggle text-light mr-3">
-            <span class="navbar-toggler-icon"></span>
-        </a>
-        <a class="navbar-brand" href="#">Celke</a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-
-        <div class="collapse navbar-collapse">
-            <ul class="navbar-nav ml-auto">
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle menu-header" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown">
-                        <img class="rounded-circle" src="imagem/icon.png" width="20" height="20">
-                        &nbsp; <span class="d-none d-sm-inline">Usuário</span>
-                    </a>
-                    <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">
-                        <a class="dropdown-item" href="#"><i class="fas fa-user"></i> Perfil</a>
-                        <a class="dropdown-item" href="#"><i class="fas fa-sign-out-alt"></i> Sair</a>
-                    </div>
-                </li>
-            </ul>
-        </div>
-    </nav>
-
-    <!----------- SIDEBAR ------------->
+    <?= $this->element('cabecalho'); ?>
+    
     <div class="d-flex">
-        <nav class="sidebar">
-            <ul class="list-unstyled">
-                <li><a href="#"><i class="fas fa-tachometer-alt"></i> Dashboard</a></li>
-                <li>
-                    <a href="#submenu1" data-toggle="collapse">
-                        <i class="fas fa-user"></i> Usuário
-                    </a>
-                    <ul class="list-unstyled collapse" id="submenu1">
-                        <li><a href="listar.html"><i class="fas fa-users"></i> Usuários</a></li>
-                        <li><a href="#"><i class="fas fa-key"></i> Nível de acesso</a></li>
-                    </ul>
-                </li>
-                <li>
-                    <a href="#submenu2" data-toggle="collapse">
-                        <i class="fas fa-list-ul"></i> Menu
-                    </a>
-                    <ul class="list-unstyled collapse" id="submenu2">
-                        <li><a href="#"><i class="fas fa-file-alt"></i> Páginas</a></li>
-                        <li><a href="#"><i class="fab fa-elementor"></i> Item de menu</a></li>
-                    </ul>
-                </li>
-                <li><a href="#">Ítem 1</a></li>
-                <li><a href="#">Ítem 2</a></li>
-                <li><a href="#">Ítem 3</a></li>
-                <li class="active"><a href="#">Ítem 4</a></li>
-                <li><a href="#"><i class="fas fa-sign-out-alt"></i> Sair</a></li>
-            </ul>
-        </nav>
+        <!----------- SIDEBAR ------------->
+        <?= $this->element('menu') ?>
 
         <!----------- CONTENT ------------->
         <div class="content p-1">
