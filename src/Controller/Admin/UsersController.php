@@ -87,7 +87,10 @@ class UsersController extends AppController
 
                 return $this->redirect(['action' => 'index']);
             }
-            $this->Flash->error(__('Não foi possível salvar as alterações. Por favor, tente novamente.'));
+            $this->Flash->danger(__('Não foi possível salvar as alterações. Por favor, tente novamente.<br>'), [
+                'params' => ['errors' => $user->getErrors()],
+                'escape' => false
+            ]);
         }
 
         $this->set(compact('user'));

@@ -36,17 +36,65 @@
                     <td class="d-none d-sm-table-cell"><?= h($user->email) ?></td>
                     <td class="d-none d-lg-table-cell"><?= h($user->date) ?></td>
                     <td class="text-center">
-                        <?= 
-                            $this->Html->link(__('Vizualizar'), 
-                            ['controller' => 'Users','action' => 'view', $user->id], 
-                            ['class' => 'btn btn-outline-primary btn-sm']) 
-                        ?>
-                        <?= $this->Html->link(__('Edit'), ['action' => 'edit', $user->id]) ?>
-                        <?= $this->Form->postLink(
-                            __('Delete'),
-                            ['action' => 'delete', $user->id],
-                            ['confirm' => __('Are you sure you want to delete # {0}?', $user->id)]
-                        ) ?>
+                        <span class="d-none d-md-block">
+                            <?=
+                            $this->Html->link(
+                                __('Vizualizar'),
+                                ['controller' => 'Users', 'action' => 'view', $user->id],
+                                ['class' => 'btn btn-outline-primary btn-sm']
+                            )
+                            ?>
+                            <?=
+                            $this->Html->link(
+                                __('Editar'),
+                                ['controller' => 'Users', 'action' => 'edit', $user->id],
+                                ['class' => 'btn btn-outline-warning btn-sm']
+                            )
+                            ?>
+                            <?=
+                            $this->Form->postLink(
+                                __('Apagar'),
+                                ['controller' => 'Users', 'action' => 'delete', $user->id],
+                                [
+                                    'class' => 'btn btn-sm btn-outline-danger',
+                                    'title' => 'Apagar usuário',
+                                    'confirm' => __('Tem certeza que deseja apagar o usuário #{0}?', $user->id)
+                                ]
+                            )
+                            ?>
+                        </span>
+                        <div class="dropdown d-block d-md-none">
+                            <button class="btn btn-primary dropdown-toggle btn-sm" type="button" id="acoesListar" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                Ações
+                            </button>
+                            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="acoesListar">
+                                <?=
+                                $this->Html->link(
+                                    __('Vizualizar'),
+                                    ['controller' => 'Users', 'action' => 'view', $user->id],
+                                    ['class' => 'dropdown-item']
+                                )
+                                ?>
+                                <?=
+                                $this->Html->link(
+                                    __('Editar'),
+                                    ['controller' => 'Users', 'action' => 'edit', $user->id],
+                                    ['class' => 'dropdown-item']
+                                )
+                                ?>
+                                <?=
+                                $this->Form->postLink(
+                                    __('Apagar'),
+                                    ['controller' => 'Users', 'action' => 'delete', $user->id],
+                                    [
+                                        'class' => 'dropdown-item',
+                                        'title' => 'Apagar usuário',
+                                        'confirm' => __('Tem certeza que deseja apagar o usuário #{0}?', $user->id)
+                                    ]
+                                )
+                                ?>
+                            </div>
+                        </div>
                     </td>
                 </tr>
             <?php endforeach; ?>
@@ -57,4 +105,3 @@
     <?= $this->element('pagination') ?>
 
 </div><!-- table-responsive -->
-
