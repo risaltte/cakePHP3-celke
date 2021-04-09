@@ -1,3 +1,11 @@
+<?php
+    //get user's first name
+    $userFirstName = current(str_word_count($perfilUser['name'], 2));
+    $userId = $perfilUser['id'];
+    $userImagem = !empty($perfilUser['imagem']) ?  '../files/users/' . $userId . '/' . $perfilUser['imagem'] :
+    '../files/users/icone_usuario.png';
+?>
+
 <nav class="navbar navbar-expand navbar-dark bg-primary">
     <a class="sidebar-toggle text-light mr-3">
         <span class="navbar-toggler-icon"></span>
@@ -11,8 +19,14 @@
         <ul class="navbar-nav ml-auto">
             <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle menu-header" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown">
-                    <img class="rounded-circle" src="imagem/icon.png" width="20" height="20">
-                    &nbsp; <span class="d-none d-sm-inline">Usuário</span>
+                    <?=
+                        $this->Html->image($userImagem, [
+                            'class' => 'rounded-circle',
+                            'width' => '20',
+                            'height' => '20'
+                        ])
+                    ?> &nbsp;
+                    <span class="d-none d-sm-inline"><?= $userFirstName ?></span>
                 </a>
                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">
                     <a class="dropdown-item" href="#"><i class="fas fa-user"></i> Perfil</a>
