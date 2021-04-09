@@ -45,6 +45,14 @@ class UsersController extends AppController
         $this->set('user', $user);
     }
 
+    public function perfil()
+    {
+        // get user logged in
+        $user = $this->Auth->user();
+
+        $this->set(compact('user'));
+    }
+
     /**
      * Add method
      *
@@ -60,7 +68,7 @@ class UsersController extends AppController
                 return $this->redirect(['controler' => 'Users', 'action' => 'index']);
             }
             $this->Flash->danger(__('Não foi possível cadastrar o usuário. Por favor, tente novamente.<br>'), [
-                'params' => ['errors' => $user->getErrors()], 
+                'params' => ['errors' => $user->getErrors()],
                 'escape' => false
             ]);
         }
@@ -111,7 +119,7 @@ class UsersController extends AppController
             $this->Flash->success(__('Usuário excluido com sucesso.'));
         } else {
             $this->Flash->danger(__('Não foi possível excluir o usuário. Por favor, tente novamente.<br>'), [
-                'params' => ['errors' => $user->getErrors()], 
+                'params' => ['errors' => $user->getErrors()],
                 'escape' => false
             ]);
         }

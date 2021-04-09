@@ -15,15 +15,8 @@
             <?=
                 $this->Html->link(
                     __('Editar'),
-                    ['controller' => 'Users', 'action' => 'edit', $user->id],
+                    ['controller' => 'Users', 'action' => 'edit', $user['id']],
                     ['class' => 'btn btn-outline-warning btn-sm']
-                )
-            ?>
-            <?=
-                $this->Form->postLink(
-                    __('Apagar'),
-                    ['controller' => 'Users', 'action' => 'delete', $user->id],
-                    ['class' => 'btn btn-outline-danger btn-sm', 'confirm' => __('Tem certeza que quer apagar o usuário # {0}?', $user->id)]
                 )
             ?>
         </span>
@@ -45,12 +38,6 @@
                         ['controller' => 'Users', 'action' => 'edit', $user->id],
                         ['class' => 'dropdown-item'])
                 ?>
-                <?=
-                $this->Form->postLink(
-                    __('Apagar'),
-                    ['controller' => 'Users', 'action' => 'delete', $user->id],
-                    ['class' => 'dropdown-item', 'confirm' => __('Tem certeza que quer apagar o usuário # {0}?', $user->id)])
-                ?>
             </div>
         </div>
     </div>
@@ -59,22 +46,16 @@
 
 <dl class="row">
     <dt class="col-sm-3">ID</dt>
-    <dd class="col-sm-9"><?= $this->Number->format($user->id) ?></dd>
+    <dd class="col-sm-9"><?= $user['id'] ?></dd>
 
     <dt class="col-sm-3">Nome</dt>
-    <dd class="col-sm-9"><?= h($user->name) ?></dd>
+    <dd class="col-sm-9"><?= $user['name'] ?></dd>
 
     <dt class="col-sm-3">Username</dt>
-    <dd class="col-sm-9"><?= h($user->username) ?></dd>
+    <dd class="col-sm-9"><?= $user['username'] ?></dd>
 
     <dt class="col-sm-3">E-mail</dt>
-    <dd class="col-sm-9"><?= h($user->email) ?></dd>
-
-    <dt class="col-sm-3 text-truncate">Data do Cadastro</dt>
-    <dd class="col-sm-9"><?= h($user->date) ?></dd>
-
-    <dt class="col-sm-3 text-truncate">Alteração</dt>
-    <dd class="col-sm-9"><?= h($user->modified) ?></dd>
+    <dd class="col-sm-9"><?= $user['email'] ?></dd>
 </dl>
 
 
