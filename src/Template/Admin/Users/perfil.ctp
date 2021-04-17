@@ -15,7 +15,7 @@
             <?=
                 $this->Html->link(
                     __('Editar'),
-                    ['controller' => 'Users', 'action' => 'edit', $user['id']],
+                    ['controller' => 'Users', 'action' => 'editPerfil'],
                     ['class' => 'btn btn-outline-warning btn-sm']
                 )
             ?>
@@ -35,7 +35,7 @@
                 <?=
                     $this->Html->link(
                         __('Editar'),
-                        ['controller' => 'Users', 'action' => 'edit', $user->id],
+                        ['controller' => 'Users', 'action' => 'editPerfil'],
                         ['class' => 'dropdown-item'])
                 ?>
             </div>
@@ -43,6 +43,8 @@
     </div>
 </div>
 <hr>
+
+<?= $this->Flash->render() ?>
 
 <dl class="row">
     <dt class="col-sm-3">ID</dt>
