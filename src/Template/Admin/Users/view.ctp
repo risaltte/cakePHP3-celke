@@ -20,6 +20,13 @@
                 )
             ?>
             <?=
+                $this->Html->link(
+                    __('Alterar senha'),
+                    ['controller' => 'Users', 'action' => 'alterPassword', $user->id],
+                    ['class' => 'btn btn-outline-secondary btn-sm']
+                )
+            ?>
+            <?=
                 $this->Form->postLink(
                     __('Apagar'),
                     ['controller' => 'Users', 'action' => 'delete', $user->id],
@@ -46,6 +53,12 @@
                         ['class' => 'dropdown-item'])
                 ?>
                 <?=
+                    $this->Html->link(
+                        __('Alterar Senha'),
+                        ['controller' => 'Users', 'action' => 'alterPassword', $user->id],
+                        ['class' => 'dropdown-item'])
+                ?>
+                <?=
                 $this->Form->postLink(
                     __('Apagar'),
                     ['controller' => 'Users', 'action' => 'delete', $user->id],
@@ -56,6 +69,8 @@
     </div>
 </div>
 <hr>
+
+<?= $this->Flash->render() ?>
 
 <dl class="row">
     <dt class="col-sm-3">ID</dt>

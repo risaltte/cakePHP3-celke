@@ -83,6 +83,56 @@ class UsersController extends AppController
         $this->set(compact('userId', 'user'));
     }
 
+    public function alterPassword(int $userId)
+    {
+        $user = $this->Users->get($userId, [
+            'contain' => []
+        ]);
+
+        if ($this->request->is(['patch', 'post', 'put'])) {
+            $user = $this->Users->patchEntity($user, $this->request->getData());
+
+            if ($this->Users->save($user)) {
+                $this->Flash->success(__('Senha do usuário alterada com sucesso.'));
+
+                return $this->redirect(['controller' => 'Users', 'action' => 'view', $user->id]);
+            }
+
+            $this->Flash->danger(__('Não foi possível alterar a senha do usuário. Por favor, tente novamente.<br>'), [
+                'params' => ['errors' => $user->getErrors()],
+                'escape' => false
+            ]);
+        }
+
+        $this->set(compact('user'));
+    }
+
+    public function alterPasswordProfile()
+    {
+        $userId = $this->Auth->user('id');
+
+        $user = $this->Users->get($userId, [
+            'contain' => []
+        ]);
+
+        if ($this->request->is(['patch', 'post', 'put'])) {
+            $user = $this->Users->patchEntity($user, $this->request->getData());
+
+            if ($this->Users->save($user)) {
+                $this->Flash->success(__('Senha alterada com sucesso.'));
+
+                return $this->redirect(['controller' => 'Users', 'action' => 'perfil']);
+            }
+
+            $this->Flash->danger(__('Não foi possível alterar a sua senha. Por favor, tente novamente.<br>'), [
+                'params' => ['errors' => $user->getErrors()],
+                'escape' => false
+            ]);
+        }
+
+        $this->set(compact('user'));
+    }
+
     /**
      * Add method
      *

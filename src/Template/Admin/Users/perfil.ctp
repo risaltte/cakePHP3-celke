@@ -7,16 +7,17 @@
         <span class="d-none d-md-block">
             <?=
                 $this->Html->link(
-                    __('Listar'),
-                    ['controller' => 'Users', 'action' => 'index'],
-                    ['class' => 'btn btn-outline-info btn-sm']
-                )
-            ?>
-            <?=
-                $this->Html->link(
                     __('Editar'),
                     ['controller' => 'Users', 'action' => 'editPerfil'],
                     ['class' => 'btn btn-outline-warning btn-sm']
+                )
+            ?>
+
+            <?=
+                $this->Html->link(
+                    __('Alterar senha'),
+                    ['controller' => 'Users', 'action' => 'alterPasswordProfile'],
+                    ['class' => 'btn btn-outline-primary btn-sm']
                 )
             ?>
         </span>
@@ -28,14 +29,15 @@
             <div class="dropdown-menu dropdown-menu-right" aria-labelledby="acoesListar">
                 <?=
                     $this->Html->link(
-                        __('Listar'),
-                        ['controller' => 'Users', 'action' => 'index'],
-                        ['class' => 'dropdown-item'])
-                    ?>
-                <?=
-                    $this->Html->link(
                         __('Editar'),
                         ['controller' => 'Users', 'action' => 'editPerfil'],
+                        ['class' => 'dropdown-item'])
+                ?>
+
+                <?=
+                    $this->Html->link(
+                        __('Alterar Senha'),
+                        ['controller' => 'Users', 'action' => 'alterPasswordProfile'],
                         ['class' => 'dropdown-item'])
                 ?>
             </div>
