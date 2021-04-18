@@ -44,6 +44,7 @@
     $this->Form->file('imagem', [
         'id' => 'imagem',
         'class' => 'form-control',
+        'accept' => '.jpeg, .jpg, .png',
         'label' => false
     ])
     ?>
