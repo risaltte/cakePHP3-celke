@@ -133,6 +133,17 @@ class UsersController extends AppController
         $this->set(compact('user'));
     }
 
+    public function alterImageProfile()
+    {
+        $userId = $this->Auth->user('id');
+
+        $user = $this->Users->get($userId, [
+            'contain' => []
+        ]);
+
+        $this->set(compact('user'));
+    }
+
     /**
      * Add method
      *

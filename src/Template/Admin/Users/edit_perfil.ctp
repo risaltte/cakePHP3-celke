@@ -9,7 +9,7 @@
         <span class="d-none d-md-block">
             <?=
                 $this->Html->link(
-                    __('Listar'),
+                    __('Perfil'),
                     ['controller' => 'Users', 'action' => 'perfil'],
                     ['class' => 'btn btn-outline-primary btn-sm']
                 )
@@ -23,7 +23,7 @@
             <div class="dropdown-menu dropdown-menu-right" aria-labelledby="acoesListar">
                 <?=
                     $this->Html->link(
-                        __('Listar'),
+                        __('Perfil'),
                         ['controller' => 'Users', 'action' => 'perfil'],
                         ['class' => 'dropdown-item'])
                 ?>

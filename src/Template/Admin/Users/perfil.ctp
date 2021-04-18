@@ -1,24 +1,34 @@
+<?php
+    // get user's id
+    $userId = $perfilUser['id'];
+
+    //get user's image
+    $userImagem = !empty($perfilUser['imagem']) ?  '../files/users/' . $userId . '/' . $perfilUser['imagem'] :
+    '../files/users/icone_usuario.png';
+?>
+
+
 <div class="d-flex">
     <div class="mr-auto p-2">
-        <h2 class="display-4 titulo">Usuário</h2>
+        <h2 class="display-4 titulo">Perfil</h2>
     </div>
     <div class="p-2">
         <!----------------- BOTOES CABECALHO ------------------------------------->
         <span class="d-none d-md-block">
             <?=
-                $this->Html->link(
-                    __('Editar'),
-                    ['controller' => 'Users', 'action' => 'editPerfil'],
-                    ['class' => 'btn btn-outline-warning btn-sm']
-                )
+            $this->Html->link(
+                __('Editar'),
+                ['controller' => 'Users', 'action' => 'editPerfil'],
+                ['class' => 'btn btn-outline-warning btn-sm']
+            )
             ?>
 
             <?=
-                $this->Html->link(
-                    __('Alterar senha'),
-                    ['controller' => 'Users', 'action' => 'alterPasswordProfile'],
-                    ['class' => 'btn btn-outline-primary btn-sm']
-                )
+            $this->Html->link(
+                __('Alterar senha'),
+                ['controller' => 'Users', 'action' => 'alterPasswordProfile'],
+                ['class' => 'btn btn-outline-primary btn-sm']
+            )
             ?>
         </span>
         <!----------------- BOTAO MENU DROPDOWN TELAS PEQUENAS ------------------------------------->
@@ -28,17 +38,19 @@
             </button>
             <div class="dropdown-menu dropdown-menu-right" aria-labelledby="acoesListar">
                 <?=
-                    $this->Html->link(
-                        __('Editar'),
-                        ['controller' => 'Users', 'action' => 'editPerfil'],
-                        ['class' => 'dropdown-item'])
+                $this->Html->link(
+                    __('Editar'),
+                    ['controller' => 'Users', 'action' => 'editPerfil'],
+                    ['class' => 'dropdown-item']
+                )
                 ?>
 
                 <?=
-                    $this->Html->link(
-                        __('Alterar Senha'),
-                        ['controller' => 'Users', 'action' => 'alterPasswordProfile'],
-                        ['class' => 'dropdown-item'])
+                $this->Html->link(
+                    __('Alterar Senha'),
+                    ['controller' => 'Users', 'action' => 'alterPasswordProfile'],
+                    ['class' => 'dropdown-item']
+                )
                 ?>
             </div>
         </div>
@@ -49,6 +61,22 @@
 <?= $this->Flash->render() ?>
 
 <dl class="row">
+    <dt class="col-sm-3">Imagem</dt>
+    <dd class="col-sm-9">
+        <?=
+            $this->Html->image($userImagem, [
+                'class' => 'rounded-circle',
+                'width' => '120',
+                'height' => '120'
+            ])
+        ?>
+
+        <?= $this->Html->link(__('Alterar Imagem'),
+            ['controller' => 'Users', 'action' => 'alterImageProfile'],
+            ['class' => 'btn btn-sm btn-outline-primary']
+        ) ?>
+    </dd>
+
     <dt class="col-sm-3">ID</dt>
     <dd class="col-sm-9"><?= $user['id'] ?></dd>
 
@@ -61,5 +89,3 @@
     <dt class="col-sm-3">E-mail</dt>
     <dd class="col-sm-9"><?= $user['email'] ?></dd>
 </dl>
-
-
