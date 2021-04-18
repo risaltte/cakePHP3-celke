@@ -36,13 +36,13 @@
 
 <?= $this->Flash->render() ?>
 
-<?= $this->Form->create($user, ['enctype' => 'multpart/form-data']) ?>
+<?= $this->Form->create($user, ['enctype' => 'multipart/form-data']) ?>
 
 <div class="form-group col-md-12">
     <label for="username"><span class="text-danger">*</span> Imagem</label>
     <?=
-    $this->Form->file('image', [
-        'id' => 'username',
+    $this->Form->file('imagem', [
+        'id' => 'imagem',
         'class' => 'form-control',
         'label' => false
     ])

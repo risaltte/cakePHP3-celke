@@ -141,6 +141,42 @@ class UsersController extends AppController
             'contain' => []
         ]);
 
+        if ($this->request->is(['pacth', 'post', 'put'])) {
+            $imageName = $this->request->getData()['imagem']['name'];
+            $imageTmp = $this->request->getData()['imagem']['tmp_name'];
+
+            // Destination path image
+            $destino = WWW_ROOT . "files" . DS. "users" . DS . $userId . DS . $imageName;
+
+            $user = $this->Users->newEntity();
+            $user->id = $userId;
+            $user->imagem = $imageName;
+
+            // upload image and save image's name on Database
+            if(move_uploaded_file($imageTmp, $destino)) {
+                if ($this->Users->save($user)) {
+                    // Update Auth for update images on pages
+                    if ($this->Auth->user('id') === $user->id) {
+                        $user = $this->Users->get($userId, [
+                            'contain' => []
+                        ]);
+
+                        $this->Auth->setUser($user);
+                    }
+
+                    $this->Flash->success(__('Imagem alterada com sucesso'));
+
+                    return $this->redirect(['controller' => 'Users', 'action' => 'perfil']);
+
+                } else {
+                    $this->Flash->danger(__('Não foi possível alterar a imagem. Por favor tente novamente.<br>'), [
+                        'params' => ['errors' => $user->getErrors()],
+                        'escape' => false
+                    ]);
+                }
+            }
+        }
+
         $this->set(compact('user'));
     }
 
