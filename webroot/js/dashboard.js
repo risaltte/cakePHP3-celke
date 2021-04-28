@@ -13,3 +13,22 @@ $(document).ready(function () {
         parent.addClass('show');
     }
 });
+
+
+function previewImagem() {
+    var imagem = document.querySelector('input[name=imagem]').files[0];
+    var preview = document.querySelector('#preview-img');
+
+    var reader = new FileReader();
+    reader.onloadend = function () {
+        preview.src = reader.result;
+    };
+
+    var imagemAntiga = preview.src
+
+    if (imagem) {
+        reader.readAsDataURL(imagem);
+    } else {
+        preview.src = imagemAntiga;
+    }
+}

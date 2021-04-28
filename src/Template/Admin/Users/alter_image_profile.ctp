@@ -1,3 +1,12 @@
+<?php
+    // get user's id
+    $userId = $user->id;
+
+    $userImageOld = !empty($user->imagem) ? '../../files/users/' . $userId . '/' . $user->imagem :
+    '../../files/users/preview_img.png';
+?>
+
+
 <div class="d-flex">
     <div class="mr-auto p-2">
         <h2 class="display-4 titulo">
@@ -38,16 +47,22 @@
 
 <?= $this->Form->create($user, ['enctype' => 'multipart/form-data']) ?>
 
-<div class="form-group col-md-12">
-    <label for="username"><span class="text-danger">*</span> Imagem</label>
-    <?=
-    $this->Form->file('imagem', [
-        'id' => 'imagem',
-        'class' => 'form-control',
-        'accept' => '.jpeg, .jpg, .png',
-        'label' => false
-    ])
-    ?>
+<div class="form-row">
+    <div class="form-group col-md-6">
+        <label for="imagem"><span class="text-danger">*</span> Imagem (150x150)</label>
+        <?=
+        $this->Form->file('imagem', [
+            'id' => 'imagem',
+            'accept' => '.jpeg, .jpg, .png',
+            'label' => false,
+            'onchange' => 'previewImagem()'
+        ])
+        ?>
+    </div>
+
+    <div class="form-group col-md-6">
+       <img src="<?= $userImageOld ?>" alt="<?= $userId?>" class="img-thumbnail" id="preview-img" style="width: 150px; height: 150px">
+    </div>
 </div>
 
 <p>
