@@ -141,8 +141,28 @@ class UsersController extends AppController
             'contain' => []
         ]);
 
-        $userImageOld = $user->imagem;
+        if ($this->request->is(['pacth', 'post', 'put'])) {
+            $user = $this->Users->newEntity();
+            $user = $this->Users->patchEntity($user, $this->request->getData());
 
+            $destino = WWW_ROOT . "files" . DS . "users" . DS . $userId . DS;
+
+            $user->imagem = $this->Users->simpleUpload($this->request->getData()['imagem'], $destino);
+
+            if ($user->imagem) {
+                $this->Flash->success(__('Imagem alterada com sucesso'));
+            } else {
+                $this->Flash->danger(__('Não foi possível alterar a imagem. Por favor tente novamente.<br>'), [
+                    'params' => ['errors' => $user->getErrors()],
+                    'escape' => false
+                ]);
+            }
+        }
+
+
+        //$userImageOld = $user->imagem;
+
+        /*
         if ($this->request->is(['pacth', 'post', 'put'])) {
             $imageName = $this->request->getData()['imagem']['name'];
             $imageTmp = $this->request->getData()['imagem']['tmp_name'];
@@ -184,6 +204,7 @@ class UsersController extends AppController
                 }
             }
         }
+        */
 
         $this->set(compact('user'));
     }
