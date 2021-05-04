@@ -17,19 +17,36 @@ class UploadBehavior extends Behavior
      */
     protected $_defaultConfig = [];
 
-    public function simpleUpload(array $file, string $destino): bool
+    public function simpleUpload(array $file, string $destino)
     {
         return $this->upload($file, $destino);
     }
 
-    protected function upload(array $file, string $destino): bool
+    protected function upload(array $file, string $destino)
     {
         extract($file);
 
+        $name = $this->slug($name);
+
         if (move_uploaded_file($tmp_name, $destino . $name)) {
-            return true;
+            return $name;
         } else {
             return false;
         }
+    }
+
+    public function slug(string $name): string
+    {
+        $formato['a'] = 'ÀÁÂÃÄÅÆÇÈÉÊËÌÍÎÏÐÑÒÓÔÕÖØÙÚÛÜüÝÞßàáâãäåæçèéêëìíîïðñòóôõöøùúûýýþÿRr"!@#$%&*()_-+={[}]/?;:,\\\'<>°ºª';
+        $formato['b'] = 'aaaaaaaceeeeiiiidnoooooouuuuuybsaaaaaaaceeeeiiiidnoooooouuuyybyRr                                ';
+
+        $name = strtr(utf8_decode($name), utf8_decode($formato['a']), $formato['b']);
+
+        $name = str_replace(' ', '-', $name);
+        $name = str_replace(['-----', '----', '---', '--'], '-', $name);
+
+        $name = mb_strtolower($name);
+
+        return $name;
     }
 }

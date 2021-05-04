@@ -141,48 +141,25 @@ class UsersController extends AppController
             'contain' => []
         ]);
 
+        $userImageOld = $user->imagem;
+
         if ($this->request->is(['pacth', 'post', 'put'])) {
-            $user = $this->Users->newEntity();
             $user = $this->Users->patchEntity($user, $this->request->getData());
 
             $destino = WWW_ROOT . "files" . DS . "users" . DS . $userId . DS;
 
+            $user = $this->Users->newEntity();
+
             $user->imagem = $this->Users->simpleUpload($this->request->getData()['imagem'], $destino);
 
             if ($user->imagem) {
-                $this->Flash->success(__('Imagem alterada com sucesso'));
-            } else {
-                $this->Flash->danger(__('Não foi possível alterar a imagem. Por favor tente novamente.<br>'), [
-                    'params' => ['errors' => $user->getErrors()],
-                    'escape' => false
-                ]);
-            }
-        }
-
-
-        //$userImageOld = $user->imagem;
-
-        /*
-        if ($this->request->is(['pacth', 'post', 'put'])) {
-            $imageName = $this->request->getData()['imagem']['name'];
-            $imageTmp = $this->request->getData()['imagem']['tmp_name'];
-
-            // Destination path image
-            $destino = WWW_ROOT . "files" . DS. "users" . DS . $userId . DS . $imageName;
-
-            $user = $this->Users->newEntity();
-            $user->id = $userId;
-            $user->imagem = $imageName;
-
-            // upload image and save image's name on Database
-            if(move_uploaded_file($imageTmp, $destino)) {
-
-                // Delete old user's image
-                if ($userImageOld !== null && $userImageOld !== $user->imagem) {
-                    unlink(WWW_ROOT . "files" . DS. "users" . DS . $userId . DS . $userImageOld);
-                }
-
+                $user->id = $userId;
                 if ($this->Users->save($user)) {
+                    // Delete old user's image
+                    if ($userImageOld !== null && $userImageOld !== $user->imagem) {
+                        unlink($destino . $userImageOld);
+                    }
+
                     // Update Auth for update images on pages
                     if ($this->Auth->user('id') === $user->id) {
                         $user = $this->Users->get($userId, [
@@ -195,16 +172,14 @@ class UsersController extends AppController
                     $this->Flash->success(__('Imagem alterada com sucesso'));
 
                     return $this->redirect(['controller' => 'Users', 'action' => 'perfil']);
-
-                } else {
-                    $this->Flash->danger(__('Não foi possível alterar a imagem. Por favor tente novamente.<br>'), [
-                        'params' => ['errors' => $user->getErrors()],
-                        'escape' => false
-                    ]);
                 }
+            } else {
+                $this->Flash->danger(__('Não foi possível alterar a imagem. Por favor tente novamente.<br>'), [
+                    'params' => ['errors' => $user->getErrors()],
+                    'escape' => false
+                ]);
             }
         }
-        */
 
         $this->set(compact('user'));
     }
