@@ -1,9 +1,9 @@
 <?php
     // get user's id
-    $userId = $perfilUser['id'];
+    $userId = $user->id;
 
     //get user's image
-    $userImagem = !empty($perfilUser['imagem']) ?  '../files/users/' . $userId . '/' . $perfilUser['imagem'] :
+    $userImagem = !empty($user->imagem) ?  '../files/users/' . $userId . '/' . $user->imagem :
     '../files/users/icone_usuario.png';
 ?>
 
@@ -78,14 +78,14 @@
     </dd>
 
     <dt class="col-sm-3">ID</dt>
-    <dd class="col-sm-9"><?= $user['id'] ?></dd>
+    <dd class="col-sm-9"><?= $user->id ?></dd>
 
     <dt class="col-sm-3">Nome</dt>
-    <dd class="col-sm-9"><?= $user['name'] ?></dd>
+    <dd class="col-sm-9"><?= $user->name ?></dd>
 
     <dt class="col-sm-3">Username</dt>
-    <dd class="col-sm-9"><?= $user['username'] ?></dd>
+    <dd class="col-sm-9"><?= $user->username ?></dd>
 
     <dt class="col-sm-3">E-mail</dt>
-    <dd class="col-sm-9"><?= $user['email'] ?></dd>
+    <dd class="col-sm-9"><?= $user->email ?></dd>
 </dl>

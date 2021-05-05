@@ -1,8 +1,8 @@
 <?php
     //get user's first name
-    $userFirstName = current(str_word_count($perfilUser['name'], 2));
-    $userId = $perfilUser['id'];
-    $userImagem = !empty($perfilUser['imagem']) ?  '../files/users/' . $userId . '/' . $perfilUser['imagem'] :
+    $userFirstName = current(str_word_count($perfilUser->name, 2));
+    $userId = $perfilUser->id;
+    $userImagem = !empty($perfilUser->imagem) ?  '../files/users/' . $userId . '/' . $perfilUser->imagem :
     '../files/users/icone_usuario.png';
 ?>
 
