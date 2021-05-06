@@ -26,8 +26,6 @@ class UploadBehavior extends Behavior
     {
         extract($file);
 
-        $name = $this->slug($name);
-
         if (move_uploaded_file($tmp_name, $destino . $name)) {
             return $name;
         } else {

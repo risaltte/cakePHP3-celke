@@ -51,7 +51,8 @@
     <div class="form-group col-md-6">
         <label for="imagem"><span class="text-danger">*</span> Imagem (150x150)</label>
         <?=
-        $this->Form->file('imagem', [
+        $this->Form->control('imagem', [
+            'type' => 'file',
             'id' => 'imagem',
             'accept' => '.jpeg, .jpg, .png',
             'label' => false,
