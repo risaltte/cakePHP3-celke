@@ -141,7 +141,7 @@ class UsersController extends AppController
         if ($this->request->is(['patch', 'post' , 'put'])) {
             $user = $this->Users->newEntity();
 
-            $user->imagem = $this->Users->slug($this->request->getData()['imagem']['name']);
+            $user->imagem = $this->Users->slugSingleUpload($this->request->getData()['imagem']['name']);
             $user->id = $userId;
 
             $user = $this->Users->patchEntity($user, $this->request->getData());
@@ -151,7 +151,7 @@ class UsersController extends AppController
                 $imagemUpload = $this->request->getData()['imagem'];
                 $imagemUpload['name'] = $user->imagem;
 
-                if($this->Users->simpleUpload($imagemUpload, $destino)) {
+                if($this->Users->singleUpload($imagemUpload, $destino)) {
                     //Delete old user's image
                     if ($userImageNameOld !== null && $userImageNameOld !== $user->imagem) {
                         unlink($destino . $userImageNameOld);

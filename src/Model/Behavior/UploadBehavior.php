@@ -1,6 +1,7 @@
 <?php
 namespace App\Model\Behavior;
 
+use Cake\Filesystem\Folder;
 use Cake\ORM\Behavior;
 use Cake\ORM\Table;
 
@@ -17,23 +18,35 @@ class UploadBehavior extends Behavior
      */
     protected $_defaultConfig = [];
 
-    public function simpleUpload(array $file, string $destino)
+    public function singleUpload(array $file, string $destiny)
     {
-        return $this->upload($file, $destino);
+        $this->createDirectory($destiny);
+
+        return $this->upload($file, $destiny);
     }
 
-    protected function upload(array $file, string $destino)
+    public function createDirectory(string $pathDir): void
+    {
+        //if the directory does not exist, create it
+        $directory = new Folder($pathDir);
+
+        if (is_null($directory->path)) {
+            $directory->create($pathDir);
+        }
+    }
+
+    protected function upload(array $file, string $destiny)
     {
         extract($file);
 
-        if (move_uploaded_file($tmp_name, $destino . $name)) {
+        if (move_uploaded_file($tmp_name, $destiny . $name)) {
             return $name;
         } else {
             return false;
         }
     }
 
-    public function slug(string $name): string
+    public function slugSingleUpload(string $name): string
     {
         $formato['a'] = 'ÀÁÂÃÄÅÆÇÈÉÊËÌÍÎÏÐÑÒÓÔÕÖØÙÚÛÜüÝÞßàáâãäåæçèéêëìíîïðñòóôõöøùúûýýþÿRr"!@#$%&*()_-+={[}]/?;:,\\\'<>°ºª';
         $formato['b'] = 'aaaaaaaceeeeiiiidnoooooouuuuuybsaaaaaaaceeeeiiiidnoooooouuuyybyRr                                ';
@@ -47,4 +60,6 @@ class UploadBehavior extends Behavior
 
         return $name;
     }
+
+
 }
