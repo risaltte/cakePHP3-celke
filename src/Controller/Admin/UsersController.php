@@ -222,12 +222,65 @@ class UsersController extends AppController
             if ($this->Users->save($user)) {
                 $this->Flash->success(__('As alterações foram salvas como sucesso.'));
 
-                return $this->redirect(['action' => 'index']);
+                return $this->redirect(['controller' => 'Users', 'action' => 'view', $user->id]);
             }
             $this->Flash->danger(__('Não foi possível salvar as alterações. Por favor, tente novamente.<br>'), [
                 'params' => ['errors' => $user->getErrors()],
                 'escape' => false
             ]);
+        }
+
+        $this->set(compact('user'));
+    }
+
+    public function alterImageUser($userId = null)
+    {
+        $user = $this->Users->get($userId, [
+            'contain' => []
+        ]);
+
+        $userImageNameOld = $user->imagem;
+
+
+        if ($this->request->is(['patch', 'post' , 'put'])) {
+            $user = $this->Users->newEntity();
+
+            $user->imagem = $this->Users->slugSingleUpload($this->request->getData()['imagem']['name']);
+            $user->id = $userId;
+
+            $user = $this->Users->patchEntity($user, $this->request->getData());
+
+            if ($this->Users->save($user)) {
+                $destino = WWW_ROOT . "files" . DS . "users" . DS . $userId . DS;
+                $imagemUpload = $this->request->getData()['imagem'];
+                $imagemUpload['name'] = $user->imagem;
+
+                if($this->Users->singleUpload($imagemUpload, $destino)) {
+                    //Delete old user's image
+                    if ($userImageNameOld !== null && $userImageNameOld !== $user->imagem) {
+                        unlink($destino . $userImageNameOld);
+                    }
+
+                    $this->Flash->success(__('Imagem alterada com sucesso'));
+
+                    return $this->redirect(['controller' => 'Users', 'action' => 'view', $user->id]);
+
+                } else {
+                    $user->imagem = $userImageNameOld;
+                    $this->Users->save($user);
+
+                    $this->Flash->danger(__('Não foi possível alterar a imagem. Erro ao realizar upload.<br>'), [
+                        'params' => ['errors' => $user->getErrors()],
+                        'escape' => false
+                    ]);
+                }
+
+            } else {
+                $this->Flash->danger(__('Não foi possível alterar a imagem. Por favor tente novamente.<br>'), [
+                    'params' => ['errors' => $user->getErrors()],
+                    'escape' => false
+                ]);
+            }
         }
 
         $this->set(compact('user'));

@@ -1,3 +1,9 @@
+<?php
+    //get user's image
+    $userImagem = !empty($user->imagem) ?  '../files/users/' . $user->id . '/' . $user->imagem :
+    '../files/users/icone_usuario.png';
+?>
+
 <div class="d-flex">
     <div class="mr-auto p-2">
         <h2 class="display-4 titulo">Usuário</h2>
@@ -73,6 +79,21 @@
 <?= $this->Flash->render() ?>
 
 <dl class="row">
+    <dt class="col-sm-3">Imagem</dt>
+    <dd class="col-sm-9">
+        <?=
+            $this->Html->image($userImagem, [
+                'class' => 'rounded-circle',
+                'width' => '120',
+                'height' => '120'
+            ])
+        ?>
+
+        <?= $this->Html->link(__('Alterar Imagem'),
+            ['controller' => 'Users', 'action' => 'alterImageUser', $user->id],
+            ['class' => 'btn btn-sm btn-outline-primary']
+        ) ?>
+    </dd>
     <dt class="col-sm-3">ID</dt>
     <dd class="col-sm-9"><?= $this->Number->format($user->id) ?></dd>
 
