@@ -7,7 +7,7 @@
 <div class="d-flex">
     <div class="mr-auto p-2">
         <h2 class="display-4 titulo">
-            Alterar imagem
+            Alterar imagem do usuário: <?= $user->name ?>
         </h2>
     </div>
     <div class="p-2">
@@ -15,8 +15,8 @@
         <span class="d-none d-md-block">
             <?=
             $this->Html->link(
-                __('Perfil'),
-                ['controller' => 'Users', 'action' => 'perfil'],
+                __('Visualizar'),
+                ['controller' => 'Users', 'action' => 'view', $user->id],
                 ['class' => 'btn btn-outline-primary btn-sm']
             )
             ?>
@@ -29,8 +29,8 @@
             <div class="dropdown-menu dropdown-menu-right" aria-labelledby="acoesListar">
                 <?=
                 $this->Html->link(
-                    __('Perfil'),
-                    ['controller' => 'Users', 'action' => 'perfil'],
+                    __('Visualizar'),
+                    ['controller' => 'Users', 'action' => 'perfil', $user->id],
                     ['class' => 'dropdown-item']
                 )
                 ?>
