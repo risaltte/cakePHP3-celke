@@ -150,15 +150,13 @@ class UsersController extends AppController
             $user = $this->Users->patchEntity($user, $this->request->getData());
 
             if ($this->Users->save($user)) {
-                $destino = WWW_ROOT . "files" . DS . "users" . DS . $userId . DS;
+                $pathDir = WWW_ROOT . "files" . DS . "users" . DS . $userId . DS;
                 $imagemUpload = $this->request->getData()['imagem'];
                 $imagemUpload['name'] = $user->imagem;
 
-                if($this->Users->uploadResizeImage($imagemUpload, $destino, self::IMG_WIDTH, self::IMG_HIGHT)) {
+                if($this->Users->uploadResizeImage($imagemUpload, $pathDir, self::IMG_WIDTH, self::IMG_HIGHT)) {
                     //Delete old user's image
-                    if ($userImageNameOld !== null && $userImageNameOld !== $user->imagem) {
-                        unlink($destino . $userImageNameOld);
-                    }
+                    $this->Users->deleteFile($pathDir, $userImageNameOld, $user->imagem);
 
                     $this->Flash->success(__('Imagem alterada com sucesso'));
 
@@ -311,15 +309,13 @@ class UsersController extends AppController
             $user = $this->Users->patchEntity($user, $this->request->getData());
 
             if ($this->Users->save($user)) {
-                $destino = WWW_ROOT . "files" . DS . "users" . DS . $userId . DS;
+                $pathDir = WWW_ROOT . "files" . DS . "users" . DS . $userId . DS;
                 $imagemUpload = $this->request->getData()['imagem'];
                 $imagemUpload['name'] = $user->imagem;
 
-                if($this->Users->uploadResizeImage($imagemUpload, $destino, self::IMG_WIDTH, self::IMG_HIGHT)) {
+                if($this->Users->uploadResizeImage($imagemUpload, $pathDir, self::IMG_WIDTH, self::IMG_HIGHT)) {
                     //Delete old user's image
-                    if ($userImageNameOld !== null && $userImageNameOld !== $user->imagem) {
-                        unlink($destino . $userImageNameOld);
-                    }
+                    $this->Users->deleteFile($pathDir, $userImageNameOld, $user->imagem);
 
                     $this->Flash->success(__('Imagem alterada com sucesso'));
 
@@ -412,6 +408,11 @@ class UsersController extends AppController
     {
         $this->request->allowMethod(['post', 'delete']);
         $user = $this->Users->get($id);
+        $pathDir = WWW_ROOT . "files" . DS . "users" . DS . $user->id . DS;
+
+        // Delete user directory
+        $this->Users->deleteDirectory($pathDir);
+
         if ($this->Users->delete($user)) {
             $this->Flash->success(__('Usuário excluido com sucesso.'));
         } else {

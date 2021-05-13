@@ -40,6 +40,7 @@ class UsersTable extends Table
         $this->addBehavior('Timestamp');
         $this->addBehavior('Upload');
         $this->addBehavior('UploadRedimencionamento');
+        $this->addBehavior('DeleteFile');
     }
 
     /**
